@@ -12,3 +12,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.swal2-show{
+  z-index: 10;
+}
+.MuiBox-root .css-0{
+  z-index: 0;
+}
+

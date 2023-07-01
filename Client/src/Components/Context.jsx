@@ -12,9 +12,10 @@ export const InvoicesContext = createContext();
 
 export default function Context({ children }) {
   const [invoices, setInvoices] = useState(data);
+  const [open, setOpen] = useState(false);
 
   return (
-    <InvoicesContext.Provider value={{invoices, setInvoices}}>
+    <InvoicesContext.Provider value={{ invoices, setInvoices, open, setOpen }}>
       {children}
     </InvoicesContext.Provider>
   );

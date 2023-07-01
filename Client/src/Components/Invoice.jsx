@@ -6,16 +6,17 @@ import {
   DialogTitle
 } from "@mui/material";
 import InvoicePic from "../InvoicePic.png";
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import EditForm from "./EditForm";
 import { getInvoices, apiUrl } from './Api';
 import { InvoicesContext } from "./Context";
+import Swal from 'sweetalert2'
+
 
 
 export default function Invoice(props) {
-  const [open, setOpen] = useState(false);
   const {
-    setInvoices
+    setInvoices,open, setOpen
   } = useContext(InvoicesContext);
 
   const handleClickOpen = () => {
@@ -35,6 +36,12 @@ export default function Invoice(props) {
     })
       .then((result) => {
         console.log(result);
+        Swal.fire({
+          title: 'success!',
+          text: 'Deleted successfully!',
+          icon: 'success',
+          confirmButtonText: 'Ok'
+        })
       })
       .catch((error) => {
         console.log(error);

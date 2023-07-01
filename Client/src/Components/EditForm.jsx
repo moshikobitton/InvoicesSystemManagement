@@ -14,9 +14,10 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { useContext, useEffect, useState } from "react";
 import { InvoicesContext } from "./Context";
 import { getInvoices, apiUrl } from "./Api";
+import Swal from 'sweetalert2'
 
 export default function EditForm(props) {
-  const { setInvoices } = useContext(InvoicesContext);
+  const { setInvoices, open, setOpen } = useContext(InvoicesContext);
   const [invoice, setInvoice] = useState({
     Status: props.invoice.Status,
     Date: props.invoice.Date,
@@ -53,7 +54,14 @@ export default function EditForm(props) {
       })
       .then((result) => {
         console.log(result);
+        setOpen(false);
         console.log("Updated successfully!");
+        Swal.fire({
+          title: 'success!',
+          text: 'Updated successfully!',
+          icon: 'success',
+          confirmButtonText: 'Ok'
+        })
         getInvoices()
           .then((result) => {
             setInvoices(result);

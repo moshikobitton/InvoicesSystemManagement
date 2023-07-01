@@ -15,7 +15,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { useContext, useState } from 'react';
 import { InvoicesContext } from "./Context";
 import { getInvoices, apiUrl } from "./Api";
-
+import Swal from 'sweetalert2'
 
 export default function InsertForm(props) {
   const {setInvoices} = useContext(InvoicesContext);
@@ -25,12 +25,22 @@ export default function InsertForm(props) {
   const isValid = (input) => {
     if (input.Amount < 0)
     {
-      console.log("Amount can't be negative number");
+      Swal.fire({
+        title: 'error!',
+        text: "Amount can't be negative number",
+        icon: 'error',
+        confirmButtonText: 'Ok'
+      })
       return false;
     }
     if (input.Status === '')
     {
-      console.log("Status can't be empty");
+      Swal.fire({
+        title: 'error!',
+        text: "Status can't be empty",
+        icon: 'error',
+        confirmButtonText: 'Ok'
+      })
       return false;
     }
     return true;
@@ -50,7 +60,12 @@ export default function InsertForm(props) {
     })
       .then((result) => {
         console.log(result);
-        console.log("Added successfully!");
+        Swal.fire({
+          title: 'success!',
+          text: 'Added successfully!',
+          icon: 'success',
+          confirmButtonText: 'Ok'
+        })
         getInvoices()
           .then((result) => {
             setInvoices(result);
