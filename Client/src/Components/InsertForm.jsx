@@ -12,14 +12,14 @@ import dayjs from "dayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { InvoicesContext } from "./Context";
 import { getInvoices, apiUrl } from "./Api";
 
 
 export default function InsertForm(props) {
   const {setInvoices} = useContext(InvoicesContext);
-  const emptyInvoice = {Status:"", Date:dayjs(new Date()), Amount:0}
+  const emptyInvoice = {Status:"", Date:dayjs(new Date()).format("MM/DD/YYYY"), Amount:0}
   const [invoice, setInvoice] = useState(emptyInvoice);
 
   const isValid = (input) => {
@@ -48,9 +48,6 @@ export default function InsertForm(props) {
         Accept: "application/json; charset=UTF-8",
       }),
     })
-      .then((res) => {
-        return res.json();
-      })
       .then((result) => {
         console.log(result);
         console.log("Added successfully!");

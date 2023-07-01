@@ -33,9 +33,6 @@ export default function Invoice(props) {
         Accept: "application/json; charset=UTF-8",
       }),
     })
-      .then((res) => {
-        return res.json();
-      })
       .then((result) => {
         console.log(result);
       })
