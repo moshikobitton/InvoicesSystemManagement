@@ -20,6 +20,7 @@
     "sweetalert2": "^11.7.12",
     "web-vitals": "^2.1.4"
   },
+  "homepage": "https://proj.ruppin.ac.il/cgroup1/test2/tar4/system/build/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

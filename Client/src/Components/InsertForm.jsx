@@ -59,7 +59,6 @@ export default function InsertForm(props) {
       }),
     })
       .then((result) => {
-        console.log(result);
         Swal.fire({
           title: 'success!',
           text: 'Added successfully!',

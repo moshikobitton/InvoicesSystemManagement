@@ -19,7 +19,6 @@ function MainPage() {
     .catch((error) => {
       console.error(error);
     });
-
   }, []);
   
   return (

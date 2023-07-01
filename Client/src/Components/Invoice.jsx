@@ -35,7 +35,6 @@ export default function Invoice(props) {
       }),
     })
       .then((result) => {
-        console.log(result);
         Swal.fire({
           title: 'success!',
           text: 'Deleted successfully!',
