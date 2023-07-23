@@ -4,8 +4,6 @@ import { useContext, useEffect } from 'react';
 import { getInvoices } from './Api';
 import { InvoicesContext } from "./Context";
 
-
-
 function MainPage() {
   const {
     setInvoices,invoices

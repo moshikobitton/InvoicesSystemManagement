@@ -19,6 +19,7 @@ import Swal from 'sweetalert2'
 export default function EditForm(props) {
   const { setInvoices, setOpen } = useContext(InvoicesContext);
   const [invoice, setInvoice] = useState({
+    Id: props.invoice.Id,
     Status: props.invoice.Status,
     Date: props.invoice.Date,
     Amount: props.invoice.Amount,
@@ -27,12 +28,24 @@ export default function EditForm(props) {
   const isValid = (input) => {
     if (input.Amount < 0)
     {
-      console.log("Amount can't be negative number");
+      setOpen(false);
+      Swal.fire({
+        title: 'error!',
+        text: "Amount can't be negative number",
+        icon: 'error',
+        confirmButtonText: 'Ok'
+      })
       return false;
     }
     if (input.Status === '')
     {
-      console.log("Status can't be empty");
+      setOpen(false);
+      Swal.fire({
+        title: 'error!',
+        text: "Status can't be empty",
+        icon: 'error',
+        confirmButtonText: 'Ok'
+      })
       return false;
     }
     return true;
@@ -41,7 +54,7 @@ export default function EditForm(props) {
   const editInvoice = () => {
     if(!isValid(invoice))
       return;
-    fetch(apiUrl + "?id=" + props.invoice.Id, {
+    fetch(`${apiUrl}/${props.invoice.Id}`, {
       method: "PUT",
       body: JSON.stringify(invoice),
       headers: new Headers({
@@ -49,9 +62,6 @@ export default function EditForm(props) {
         Accept: "application/json; charset=UTF-8",
       }),
     })
-      .then((res) => {
-        return res.json();
-      })
       .then((result) => {
         setOpen(false);
         Swal.fire({
@@ -69,7 +79,7 @@ export default function EditForm(props) {
           });
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
       });
   };
 
@@ -89,6 +99,7 @@ export default function EditForm(props) {
           label="Status"
           defaultValue={props.invoice.Status}
           onChange={(e) =>setInvoice((prev) => ({
+                  Id: prev.Id,
                   Status: e.target.value,
                   Date: prev.Date,
                   Amount: prev.Amount,

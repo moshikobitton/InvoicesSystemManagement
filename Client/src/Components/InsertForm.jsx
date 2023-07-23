@@ -19,7 +19,7 @@ import Swal from 'sweetalert2'
 
 export default function InsertForm(props) {
   const {setInvoices} = useContext(InvoicesContext);
-  const emptyInvoice = {Status:"", Date:dayjs(new Date()).format("MM/DD/YYYY"), Amount:0}
+  const emptyInvoice = {Date:dayjs(new Date()).format("MM/DD/YYYY"),Status:"", Amount:0}
   const [invoice, setInvoice] = useState(emptyInvoice);
 
   const isValid = (input) => {
@@ -46,16 +46,15 @@ export default function InsertForm(props) {
     return true;
   }
 
-  const insertInvoice = () => {
+  const insertInvoice = async () => {
     if(!isValid(invoice))
       return;
-
     fetch(apiUrl, {
       method: "POST",
       body: JSON.stringify(invoice),
       headers: new Headers({
         "Content-Type": "application/json; charset=UTF-8",
-        Accept: "application/json; charset=UTF-8",
+        //"Accept": "application/json; charset=UTF-8",
       }),
     })
       .then((result) => {
@@ -74,7 +73,7 @@ export default function InsertForm(props) {
           });
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
       });
   };
 
@@ -93,7 +92,7 @@ export default function InsertForm(props) {
           id="outlined-required"
           label="Status"
           value={invoice.Status}
-          onChange={(e)=>setInvoice((prev)=>({Status:e.target.value, Date:prev.Date, Amount:prev.Amount}))}
+          onChange={(e)=>setInvoice((prev)=>({ Date:prev.Date, Status:e.target.value, Amount:parseInt(prev.Amount)}))}
         />
         <br />
           <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -102,7 +101,7 @@ export default function InsertForm(props) {
               label="Date picker*"
               value={dayjs(invoice.Date)}
               maxDate={dayjs(new Date())}
-              onChange={(value)=>setInvoice((prev)=>({Status:prev.Status, Date:dayjs(value).format("MM/DD/YYYY"), Amount:prev.Amount}))}
+              onChange={(value)=>setInvoice((prev)=>({ Date:dayjs(value).format("MM/DD/YYYY"), Status:prev.Status, Amount:parseInt(prev.Amount)}))}
             />
           </LocalizationProvider>
           <br />
@@ -115,7 +114,7 @@ export default function InsertForm(props) {
               endAdornment={<InputAdornment position="end">$</InputAdornment>}
               label="Amount"
               value={invoice.Amount}
-              onChange={(e)=>setInvoice((prev)=>({Status:prev.Status, Date:prev.Date, Amount:e.target.value}))}
+              onChange={(e)=>setInvoice((prev)=>({ Date:prev.Date, Status:prev.Status, Amount:parseInt(e.target.value)}))}
             />
           </FormControl>
           <br />

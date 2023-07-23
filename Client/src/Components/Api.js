@@ -1,4 +1,4 @@
-  export const apiUrl = "https://proj.ruppin.ac.il/cgroup1/test2/tar4/api/invoices";
+  export const apiUrl = "https://localhost:7283/api/Invoice";
 
   export const getInvoices = () => {
     return new Promise((resolve, reject) => {
@@ -13,6 +13,7 @@
           return res.json();
         })
         .then((result) => {
+          result = result.map(invoice => ({Id: invoice.id, Status:invoice.status,Date:invoice.date, Amount:invoice.amount}))
           resolve(result);
         })
         .catch((error) => {

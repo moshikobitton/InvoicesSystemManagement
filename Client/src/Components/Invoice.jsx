@@ -1,23 +1,13 @@
-import {
-  Box,
-  Typography,
-  Button,
-  Dialog,
-  DialogTitle
-} from "@mui/material";
+import { Box, Typography, Button, Dialog, DialogTitle } from "@mui/material";
 import InvoicePic from "../InvoicePic.png";
 import { useContext } from "react";
 import EditForm from "./EditForm";
-import { getInvoices, apiUrl } from './Api';
+import { getInvoices, apiUrl } from "./Api";
 import { InvoicesContext } from "./Context";
-import Swal from 'sweetalert2'
-
-
+import Swal from "sweetalert2";
 
 export default function Invoice(props) {
-  const {
-    setInvoices,open, setOpen
-  } = useContext(InvoicesContext);
+  const { setInvoices, open, setOpen } = useContext(InvoicesContext);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -27,7 +17,7 @@ export default function Invoice(props) {
   };
 
   const deleteInvoice = () => {
-    fetch(apiUrl +'?id='+props.invoice.Id, {
+    fetch(`${apiUrl}/${props.invoice.Id}`, {
       method: "DELETE",
       headers: new Headers({
         "Content-Type": "application/json; charset=UTF-8",
@@ -36,30 +26,29 @@ export default function Invoice(props) {
     })
       .then((result) => {
         Swal.fire({
-          title: 'success!',
-          text: 'Deleted successfully!',
-          icon: 'success',
-          confirmButtonText: 'Ok'
-        })
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-    getInvoices()
-    .then((result) => {
-      setInvoices(result);
-      getInvoices()
+          title: "success!",
+          text: "Deleted successfully!",
+          icon: "success",
+          confirmButtonText: "Ok",
+        });
+        getInvoices()
           .then((result) => {
             setInvoices(result);
+            getInvoices()
+              .then((result) => {
+                setInvoices(result);
+              })
+              .catch((error) => {
+                console.error(error);
+              });
           })
           .catch((error) => {
             console.error(error);
           });
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -106,10 +95,16 @@ export default function Invoice(props) {
         >
           <Box style={{ padding: 20 }}>
             <DialogTitle id="alert-dialog-title">{"Edit Invoice"}</DialogTitle>
-            <EditForm invoice={props.invoice} /><br />
-              <Button fullWidth variant="contained" size="medium" onClick={handleClose}>
-                Close
-              </Button>
+            <EditForm invoice={props.invoice} />
+            <br />
+            <Button
+              fullWidth
+              variant="contained"
+              size="medium"
+              onClick={handleClose}
+            >
+              Close
+            </Button>
           </Box>
         </Dialog>
       </div>
