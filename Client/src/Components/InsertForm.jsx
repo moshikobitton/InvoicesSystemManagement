@@ -64,6 +64,7 @@ export default function InsertForm(props) {
           icon: 'success',
           confirmButtonText: 'Ok'
         })
+        clear();
         getInvoices()
           .then((result) => {
             setInvoices(result);
