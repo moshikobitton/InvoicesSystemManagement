@@ -1,6 +1,6 @@
 import { Box, Typography, Button, Dialog, DialogTitle } from "@mui/material";
 import InvoicePic from "../InvoicePic.png";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import EditForm from "./EditForm";
 import { getInvoices, apiUrl } from "./Api";
 import { InvoicesContext } from "./Context";

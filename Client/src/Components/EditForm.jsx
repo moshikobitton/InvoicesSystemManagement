@@ -11,7 +11,7 @@ import dayjs from "dayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { InvoicesContext } from "./Context";
 import { getInvoices, apiUrl } from "./Api";
 import Swal from 'sweetalert2'
@@ -25,7 +25,7 @@ export default function EditForm(props) {
     {
       setOpen(false);
       Swal.fire({
-        title: 'error!',
+        title: 'Error!',
         text: "Amount can't be negative number",
         icon: 'error',
         confirmButtonText: 'Ok'
@@ -36,7 +36,7 @@ export default function EditForm(props) {
     {
       setOpen(false);
       Swal.fire({
-        title: 'error!',
+        title: 'Error!',
         text: "Status can't be empty",
         icon: 'error',
         confirmButtonText: 'Ok'
@@ -60,7 +60,7 @@ export default function EditForm(props) {
       .then((result) => {
         setOpen(false);
         Swal.fire({
-          title: 'success!',
+          title: 'Success!',
           text: 'Updated successfully!',
           icon: 'success',
           confirmButtonText: 'Ok'

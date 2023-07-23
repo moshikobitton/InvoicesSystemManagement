@@ -26,7 +26,7 @@ export default function InsertForm(props) {
     if (input.Amount < 0)
     {
       Swal.fire({
-        title: 'error!',
+        title: 'Error!',
         text: "Amount can't be negative number",
         icon: 'error',
         confirmButtonText: 'Ok'
@@ -36,7 +36,7 @@ export default function InsertForm(props) {
     if (input.Status === '')
     {
       Swal.fire({
-        title: 'error!',
+        title: 'Error!',
         text: "Status can't be empty",
         icon: 'error',
         confirmButtonText: 'Ok'
@@ -59,7 +59,7 @@ export default function InsertForm(props) {
     })
       .then((result) => {
         Swal.fire({
-          title: 'success!',
+          title: 'Success!',
           text: 'Added successfully!',
           icon: 'success',
           confirmButtonText: 'Ok'
