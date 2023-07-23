@@ -1,16 +1,17 @@
 import { Box, Typography, Button, Dialog, DialogTitle } from "@mui/material";
 import InvoicePic from "../InvoicePic.png";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import EditForm from "./EditForm";
 import { getInvoices, apiUrl } from "./Api";
 import { InvoicesContext } from "./Context";
 import Swal from "sweetalert2";
 
 export default function Invoice(props) {
-  const { setInvoices, open, setOpen } = useContext(InvoicesContext);
+  const { setInvoices, open, setOpen, invoice, setInvoice } = useContext(InvoicesContext);
 
   const handleClickOpen = () => {
     setOpen(true);
+    setInvoice(props.invoice);
   };
   const handleClose = () => {
     setOpen(false);
@@ -95,7 +96,7 @@ export default function Invoice(props) {
         >
           <Box style={{ padding: 20 }}>
             <DialogTitle id="alert-dialog-title">{"Edit Invoice"}</DialogTitle>
-            <EditForm invoice={props.invoice} />
+            <EditForm invoice={invoice} />
             <br />
             <Button
               fullWidth

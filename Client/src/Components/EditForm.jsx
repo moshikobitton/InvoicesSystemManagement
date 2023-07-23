@@ -17,13 +17,8 @@ import { getInvoices, apiUrl } from "./Api";
 import Swal from 'sweetalert2'
 
 export default function EditForm(props) {
-  const { setInvoices, setOpen } = useContext(InvoicesContext);
-  const [invoice, setInvoice] = useState({
-    Id: props.invoice.Id,
-    Status: props.invoice.Status,
-    Date: props.invoice.Date,
-    Amount: props.invoice.Amount,
-  });
+  const { setInvoices, setOpen, invoice, setInvoice } = useContext(InvoicesContext);
+
 
   const isValid = (input) => {
     if (input.Amount < 0)
@@ -54,7 +49,7 @@ export default function EditForm(props) {
   const editInvoice = () => {
     if(!isValid(invoice))
       return;
-    fetch(`${apiUrl}/${props.invoice.Id}`, {
+    fetch(`${apiUrl}/${invoice.Id}`, {
       method: "PUT",
       body: JSON.stringify(invoice),
       headers: new Headers({
@@ -90,14 +85,14 @@ export default function EditForm(props) {
           disabled
           id="outlined-disabled"
           label="Id"
-          defaultValue={props.invoice.Id}
+          defaultValue={invoice.Id}
         />
         <br />
         <TextField
           required
           id="outlined-required"
           label="Status"
-          defaultValue={props.invoice.Status}
+          defaultValue={invoice.Status}
           onChange={(e) =>setInvoice((prev) => ({
                   Id: prev.Id,
                   Status: e.target.value,
@@ -111,9 +106,10 @@ export default function EditForm(props) {
           <DatePicker
             required
             label="Date picker*"
-            defaultValue={dayjs(props.invoice.Date)}
+            defaultValue={dayjs(invoice.Date)}
             onChange={(value) =>
               setInvoice((prev) => ({
+                Id: prev.Id,
                 Status: prev.Status,
                 Date: dayjs(value).format("MM/DD/YYYY"),
                 Amount: prev.Amount,
@@ -133,6 +129,7 @@ export default function EditForm(props) {
             endAdornment={<InputAdornment position="end">$</InputAdornment>}
             label="Amount"
             onChange={(e) =>setInvoice((prev) => ({
+                    Id: prev.Id,
                     Status: prev.Status,
                     Date: prev.Date,
                     Amount: e.target.value,
